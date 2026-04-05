@@ -3,15 +3,30 @@ const FinancialRecord = require("../models/RecordModel");
 module.exports.getAllRecords = async (req, res) => {
   const { userId } = req.params;
 
-  const allRecords = await (await FinancialRecord.find({ owner: userId }))
+  const filter = { owner: userId };
+
+  if (req.query.type) {
+    filter.type = req.query.type;
+  }
+
+  if (req.query.category) {
+    filter.category = req.query.category;
+  }
+
+  if (req.query.startDate && req.query.endDate) {
+    filter.createdAt = {
+      $gte: new Date(req.query.startDate),
+      $lte: new Date(req.query.endDate),
+    };
+  }
+
+  const allRecords = await FinancialRecord.find(filter)
     .sort({ createdAt: -1 })
     .limit(30);
 
-  if (!allRecords) {
-    return res.status(500).json({ error: "Failed to Fetch Records" });
-  }
-
-  res.status(200).json(allRecords);
+  res
+    .status(200)
+    .json({ success: true, count: allRecords.length, data: allRecords });
 };
 
 module.exports.createRecord = async (req, res) => {
