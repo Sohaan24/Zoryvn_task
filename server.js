@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express") ;
 const mongoose = require("mongoose") ;
 const PORT = 3000 ;
@@ -8,6 +9,10 @@ const summaryRoutes = require("./route/summary");
 const app = express() ;
 
 app.use(express.json()); 
+
+mongoose.connect(process.env.MONGO_URL)
+    .then(() => console.log("Connected to MongoDB Atlas"))
+    .catch((err) => console.log("Failed to connect to MongoDB", err));
 
 app.use("/api/users", userRoutes);
 app.use("/api/records", recordRoutes);
