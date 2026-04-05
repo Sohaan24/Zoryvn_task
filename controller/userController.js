@@ -3,7 +3,7 @@ const User = require("../models/UserModel");
 module.exports.getAllUsers = async (req, res) => {
   const allUsers = (await User.find().select("-__v")).sort({ createdAt: -1 });
 
-  if (!allUsers || allUsers.lenght === 0) {
+  if (!allUsers || allUsers.length === 0) {
     throw new Error("No users found in database");
   }
 
@@ -16,7 +16,7 @@ module.exports.getAllUsers = async (req, res) => {
 module.exports.createUser = async (req, res) => {
   const { userName, mobileNumber, password } = req.body;
 
-  if (!userName || !mobileNumber, !password) {
+  if (!userName || !mobileNumber || !password) {
     return res.status(400).json({ err: "Mobile Number, userName and password are required" });
   }
 
@@ -36,7 +36,7 @@ module.exports.updateUserRole = async (req, res) => {
   const { role } = req.body;
 
   if (!role || !["Viewer", "Analyst", "Admin"].includes(role)) {
-    return res.stauts(400).json({
+    return res.status(400).json({
       error: "A valid role is required 'Admin', 'Analyst' , 'Admin' ",
     });
   }

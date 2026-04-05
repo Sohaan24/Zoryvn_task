@@ -25,7 +25,7 @@ router.post(
 
 // Update Route
 router.patch(
-  "/",
+  "/:id",
   requireAuth,
   authorizeRoles("Admin"),
   wrapAsync(recordController.updateRecord),

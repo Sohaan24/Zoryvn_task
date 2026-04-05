@@ -1,4 +1,5 @@
 const FinancialRecord = require("../models/RecordModel");
+const mongoose = require("mongoose");
 
 module.exports.summary = async (req, res) => {
   const userId = new mongoose.Types.ObjectId(req.user.id);
