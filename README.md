@@ -1,4 +1,4 @@
-# Zorvyn Finance Dashboard API
+# Fintech DashBoard API
 
 ## Overview
 This is a robust, secure RESTful API built for a Finance Dashboard system. It handles the backend logic for managing user roles, processing financial transactions (income and expenses), enforcing strict Role-Based Access Control (RBAC), and generating heavy data aggregations for dashboard analytics.
